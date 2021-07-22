@@ -1,8 +1,22 @@
+import { initializeApp } from 'firebase/app';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: 'AIzaSyCjE87WMsk2alE368lC60CbB_p3H3UVQwM',
+  authDomain: 'ariel-wallet.firebaseapp.com',
+  projectId: 'ariel-wallet',
+  storageBucket: 'ariel-wallet.appspot.com',
+  messagingSenderId: '977417305422',
+  appId: '1:977417305422:web:069fb96babe1aee66a721f',
+  measurementId: 'G-BTKVYLFME3',
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
