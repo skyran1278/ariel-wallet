@@ -1,0 +1,20 @@
+{
+  "env": {
+    "jest": true,
+    "browser": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "airbnb",
+    "airbnb/hooks",
+    "prettier"
+  ]
+}
