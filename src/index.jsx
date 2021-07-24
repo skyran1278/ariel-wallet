@@ -1,9 +1,11 @@
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { initializeApp } from 'firebase/app';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
 import reportWebVitals from './reportWebVitals';
+import theme from './theme';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -16,11 +18,14 @@ const firebaseConfig = {
   measurementId: 'G-BTKVYLFME3',
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
