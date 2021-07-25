@@ -1,0 +1,83 @@
+export default {
+  categories: [
+    {
+      id: '1',
+      name: 'Food',
+      type: 'EXPENSE',
+      color: '#e91e63',
+      icon: 'restaurant',
+    },
+    {
+      id: '2',
+      name: 'Drink',
+      type: 'EXPENSE',
+      color: '#ee8899',
+      icon: 'drink',
+    },
+    {
+      id: '3',
+      name: '股票',
+      type: 'INCOME',
+      color: '#ff22ff',
+      icon: 'plus',
+    },
+    {
+      id: '4',
+      name: '学生贷款',
+      type: 'EXPENSE',
+      color: '#333333',
+      icon: 'borrow',
+    },
+    {
+      id: '5',
+      name: '其他',
+      type: 'EXPENSE',
+      color: '#999999',
+      icon: 'shopping-cart',
+    },
+  ],
+  records: [
+    {
+      id: '1',
+      date: '2017-01-01',
+      category: '3',
+      amount: '100',
+      comment: '股票買了100元',
+    },
+    {
+      id: '2',
+      date: '2017-01-02',
+      category: '3',
+      amount: '200',
+      comment: '股票買了200元',
+    },
+    {
+      id: '3',
+      date: '2017-01-03',
+      category: '3',
+      amount: '300',
+      comment: '股票買了300元',
+    },
+    {
+      id: '4',
+      date: '2017-01-04',
+      category: '1',
+      amount: '100',
+      comment: '食品買了100元',
+    },
+    {
+      id: '5',
+      date: '2017-01-05',
+      category: '1',
+      amount: '200',
+      comment: '食品買了200元',
+    },
+    {
+      id: '6',
+      date: '2017-01-06',
+      category: '2',
+      amount: '300',
+      comment: '飲料買了300元',
+    },
+  ],
+};
