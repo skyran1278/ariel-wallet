@@ -1,19 +1,18 @@
-import { Button, Container, Stack } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import Dashboard from 'aw/components/Dashboard';
 import HomeDayRecords from 'aw/components/HomeDayRecords';
 import React from 'react';
+import HomeFloatActionButton from './HomeFloatActionButton';
 
 function Home() {
   return (
-    <Container>
-      <Dashboard />
-      <HomeDayRecords />
-      <Stack direction="row" justifyContent="space-between">
-        <Button variant="outlined">Detail</Button>
-        <Button variant="outlined">New</Button>
-        <Button variant="outlined">Settings</Button>
-      </Stack>
-    </Container>
+    <>
+      <Container>
+        <Dashboard />
+        <HomeDayRecords />
+      </Container>
+      <HomeFloatActionButton />
+    </>
   );
 }
 
