@@ -1,6 +1,5 @@
 import { Box, Fab, Stack } from '@material-ui/core';
 import { AccountBalanceWallet, Add, Settings } from '@material-ui/icons';
-import React from 'react';
 
 function HomeFloatActionButton() {
   return (

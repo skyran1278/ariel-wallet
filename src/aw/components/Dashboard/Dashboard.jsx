@@ -1,5 +1,5 @@
 import Chart from 'chart.js/auto';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function Dashboard() {
   const chartElement = useRef(null);

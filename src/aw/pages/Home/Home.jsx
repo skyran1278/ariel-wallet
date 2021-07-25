@@ -1,7 +1,6 @@
 import { Container } from '@material-ui/core';
 import Dashboard from 'aw/components/Dashboard';
 import HomeDayRecords from 'aw/components/HomeDayRecords';
-import React from 'react';
 import HomeFloatActionButton from './HomeFloatActionButton';
 
 function Home() {
