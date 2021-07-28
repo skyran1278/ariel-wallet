@@ -1,7 +1,6 @@
 import Chart from 'aw/components/Chart';
 import dataset from 'aw/dataset';
 import { groupBy, mapValues } from 'lodash';
-import { useMemo } from 'react';
 import useSWR from 'swr';
 
 // function useCategories() {
@@ -32,41 +31,59 @@ import useSWR from 'swr';
 // https://www.createwithdata.com/react-chartjs-dashboard/
 // { categories, records }
 function Dashboard() {
-  const { data: categories1 } = useSWR(`/api/categories`, () =>
-    Promise.resolve(dataset.categories)
-  );
-  const { data: records1 } = useSWR(`/api/records`, () =>
-    Promise.resolve(dataset.records)
-  );
-
   const compute = (categories, records) => {
     if (!records || !categories) return {};
 
-    const labels = categories
-      .filter((category) => category.type === 'EXPENSE')
-      .map((category) => category.name);
+    const categoryIds = categories.map((category) => category.id);
+    const categoryNames = categories.map((category) => category.name);
+    const categoryColors = categories.map((category) => category.color);
 
-    const data = mapValues(
-      groupBy(
-        records.map((record) => ({ ...record })),
-        (record) => record.category
-      ),
-      (v) => v.reduce((sum, record) => sum + record.amount, 0)
+    const data = mapValues(groupBy(records, 'category'), (v) =>
+      v.reduce((sum, record) => sum + record.amount, 0)
     );
 
-    return { labels, datasets: [{ data }] };
+    const categoryAmounts = categoryIds.map((id) => data[id]);
+
+    return {
+      labels: categoryNames,
+      datasets: [{ data: categoryAmounts, backgroundColor: categoryColors }],
+    };
   };
 
-  const data = useMemo(
-    () => compute(categories1, records1),
-    [categories1, records1]
+  const { data: categories } = useSWR(`/api/categories`, () =>
+    Promise.resolve(dataset.categories)
+  );
+  const { data: records } = useSWR(`/api/records`, () =>
+    Promise.resolve(dataset.records)
   );
 
-  return (
-    <>
-      <Chart type="bar" data={data} />
-    </>
-  );
+  const data = compute(categories, records);
+
+  // TODO: (paul) label on right
+  // https://github.com/chartjs/chartjs-plugin-datalabels
+  const options = {
+    indexAxis: 'y',
+    // no grid
+    // https://stackoverflow.com/questions/36676263/chart-js-v2-hiding-grid-lines
+    scales: {
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+    },
+  };
+
+  return <Chart type="bar" data={data} options={options} />;
 }
 
 Dashboard.propTypes = {};
