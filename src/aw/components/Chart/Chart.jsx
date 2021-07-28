@@ -1,74 +1,56 @@
 import ChartJS from 'chart.js/auto';
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import React, { Component } from 'react';
 
-function Chart({ type, data, options = {}, ...rest }) {
-  const canvas = useRef(null);
-  const [, setChart] = useState();
+class Chart extends Component {
+  constructor(props) {
+    super(props);
+    this.canvas = React.createRef();
+  }
 
-  console.log('new');
-
-  // const initChart = useCallback(() => {
-  //   if (!canvas.current) return;
-
-  //   setChart(new ChartJS(canvas.current, { type, data, options, ...rest }));
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // const destroyChart = useCallback(() => {
-  //   if (chart) chart.destroy();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // const updateChart = useCallback(() => {
-  //   if (!chart) return;
-
-  //   if (options) {
-  //     chart.options = { ...options };
-  //   }
-
-  //   chart.config.data = data;
-  //   chart.update();
-  // }, [chart, data, options]);
-
-  useEffect(() => {
-    console.log('inside');
-    if (!canvas.current) return undefined;
-
-    const chartInstance = new ChartJS(canvas.current, {
+  componentDidMount() {
+    const { type, data, options, ...rest } = this.props;
+    this.chart = new ChartJS(this.canvas.current, {
       type,
       data,
       options,
       ...rest,
     });
+  }
 
-    setChart(chartInstance);
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+    const { data, options } = this.props;
 
-    return () => {
-      // can't use `chart.destroy()` because it's undefined
-      chartInstance.destroy();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (options) {
+      this.chart.options = options;
+    }
 
-  // useEffect(() => {
-  //   initChart();
-  //   return destroyChart;
-  // }, [initChart, destroyChart]);
+    this.chart.data = data;
+    // this.chart.data.labels = data.labels;
+    // this.chart.data.datasets[0].data = this.props.data.map((d) => d.value);
+    this.chart.update();
+  }
 
-  // useEffect(() => {
-  //   updateChart();
-  // }, [updateChart]);
+  componentWillUnmount() {
+    this.chart.destroy();
+  }
 
-  return <canvas ref={canvas} />;
+  render() {
+    return <canvas ref={this.canvas} />;
+  }
 }
 
 Chart.propTypes = {
   type: PropTypes.string.isRequired,
   data: PropTypes.shape({
-    label: PropTypes.arrayOf(PropTypes.string),
+    labels: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  options: PropTypes.shape({}).isRequired,
+  options: PropTypes.shape({}),
+};
+
+Chart.defaultProps = {
+  options: undefined,
 };
 
 export default Chart;
